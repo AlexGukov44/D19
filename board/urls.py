@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:pk>/update/', PostsUpdate.as_view()),
     path('<int:pk>/delete/', PostsDelete.as_view()),
     # path('<int:pk>/comments/', CommentsDelete.as_view(), name='post_comments'),
+    path('update_comment_status/<int:pk>', update_comment_status, name='update_comment_status')
 ]

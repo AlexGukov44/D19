@@ -65,7 +65,8 @@ class Categories(models.Model):
 class StatusComment(models.Manager):
     def get_queryset(self):
         print(get_current_user())
-        return super().get_queryset().filter(Q(status=False,link_2 = get_current_user()) | Q(status=False), link_1__author =get_current_user())
+        return super().get_queryset().filter(Q(status=False,link_2 = get_current_user()) | Q(status=False,
+                                             link_1__author=get_current_user()) | Q(status=True))
 
 class Comment(models.Model):
     link_1 = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name='comment_posts')

@@ -10,7 +10,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.views.generic.edit import FormMixin
 
 from .forms import PostsForm, CommentsForm
-from .models import Posts, Categories, Comment
+from .models import Posts, Categories, Comment,Users
 from django.db.models.signals import post_save
 
 # from .filters import CategoriesFilter
@@ -90,6 +90,10 @@ class PostsCreate(CreateView):
     model = Posts
     # и новый шаблон, в котором используется форма.
     template_name = 'posts_form.html'
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.author = Users.objects.get(user_id = self.request.user.id)
+        return super().form_valid(form)
 
 class PostsUpdate(LoginRequiredMixin,UpdateView):
     form_class = PostsForm
@@ -100,6 +104,10 @@ class PostsDelete(DeleteView):
     model = Posts
     template_name = 'post_delete.html'
     success_url = reverse_lazy('posts_list')
+
+def update_comment_status(request, pk, type):
+    return HttpResponse('1')
+
 
 
 

@@ -1,0 +1,45 @@
+{% extends 'flatpages/default.html' %}
+
+<!-- Название у нас будет Product -->
+{% block title %}
+Post
+{% endblock title %}
+<!-- В контенте на странице мы выводим сам товар, идентификатор которого был передан в url -->
+{% block content %}
+<h1 xmlns="http://www.w3.org/1999/html">A Post</h1>
+
+<h5>{{ post.title }}</h5>
+<hr>
+{{ post.text }}
+
+<div class="col-4" >
+<p> <h5>Комментарии</h5> </p>
+    <hr>
+
+{%for comment in comments%}
+
+    <h6>Автор: {{comment.link_2}}</h6>
+    <br>
+    Комментарий: {{comment.text_comment}}<br>
+    дата: {{comment.time_in_comment}}<br><br>
+    ____________________________
+
+
+{%endfor%}
+
+</div>
+<br>
+<div class="col-4">
+<p> Добавить комментарий: </p>
+
+    <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Добавить"/>
+    </form>
+
+<hr>
+
+</div>
+
+{% endblock content %}

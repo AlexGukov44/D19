@@ -79,6 +79,8 @@ class Comment(models.Model):
     def __str__(self):
         return f'{self.text_comment[:28]}: {self.time_in_comment}'
 
+
+
     # def get_absolute_url(self):
     #     return reverse('post_comments', args=[str(self.id)])
 
